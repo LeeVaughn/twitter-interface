@@ -1,6 +1,6 @@
 # Twitter Interface (Work in Progress)
 
-A Node.js application that uses Twitter's REST API to access data for a Twitter profile and display it to the user.
+An Express and Pug application that uses Twitter's REST API to access data for a Twitter profile and display it to the user.
 
 ## Motivation
 
