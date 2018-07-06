@@ -1,0 +1,27 @@
+{
+  "name": "twitter-interface",
+  "version": "1.0.0",
+  "description": "An express application that created Twitter interfact using Twitter's REST API.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeeVaughn/twitter-interface.git"
+  },
+  "keywords": [
+    "Twitter",
+    "interface",
+    "REST",
+    "API",
+    "Express",
+    "Treehouse"
+  ],
+  "author": "Daniel Lee Vaughn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeeVaughn/twitter-interface/issues"
+  },
+  "homepage": "https://github.com/LeeVaughn/twitter-interface#readme"
+}
