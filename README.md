@@ -21,7 +21,7 @@ This project was created as a part of the Treehouse Full Stack JavaScript Techde
 
 ## Dependencies
 
-* TDB
+* [Twit](https://www.npmjs.com/package/twit) Twitter API Client for node
 
 ## Links
 
