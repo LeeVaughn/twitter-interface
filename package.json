@@ -13,6 +13,7 @@
   "keywords": [
     "Twitter",
     "interface",
+    "Twitter at a Glance",
     "REST",
     "API",
     "Express",
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/LeeVaughn/twitter-interface/issues"
   },
-  "homepage": "https://github.com/LeeVaughn/twitter-interface#readme"
+  "homepage": "https://github.com/LeeVaughn/twitter-interface#readme",
+  "dependencies": {
+    "twit": "^2.2.11"
+  }
 }
