@@ -21,7 +21,10 @@ This project was created as a part of the Treehouse Full Stack JavaScript Techde
 
 ## Dependencies
 
+* [express](https://www.npmjs.com/package/express) Fast, unopinionated, minimalist web framework for node
+* [pug](https://www.npmjs.com/package/pug) A clean, whitespace-sensitive template language for writing HTML
 * [Twit](https://www.npmjs.com/package/twit) Twitter API Client for node
+* [body-parser](https://www.npmjs.com/package/body-parser) Node.js body parsing middleware
 
 ## Links
 
