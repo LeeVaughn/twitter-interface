@@ -33,6 +33,9 @@ const T = new Twit({
 module.exports = config;
 ```
 
+* The config.js file should be saved in the same directory as app.js
+* Type ```npm start``` or ```node app.js``` to run application (application runs on localhost:3000)
+
 ## Dependencies
 
 * [express](https://www.npmjs.com/package/express) Fast, unopinionated, minimalist web framework for node
