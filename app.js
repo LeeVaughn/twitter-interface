@@ -20,15 +20,19 @@ T.get("account/verify_credentials", (err, data, res, next) => {
   if (err) {
     console.log(err);
   }
-  console.log(data);
-  // adds user data to user object
+
+  // adds user data to object named "user"
   user.id = data.id;
   user.name = data.name;
   user.screenName = data.screen_name;
   user.friendsCount = data.friends_count;
   user.profileImage = data.profile_image_url;
   user.profileBanner = data.profile_banner_url;
-  console.log(user);
+});
+
+// renders layout.pug to the "/" route
+app.get("/", (req, res) => {
+  res.render("layout");
 });
 
 // creates server running on localhost:3000
