@@ -32,7 +32,7 @@ T.get("account/verify_credentials", (err, data, res, next) => {
 
 // renders layout.pug to the "/" route
 app.get("/", (req, res) => {
-  res.render("layout");
+  res.render("layout", {user});
 });
 
 // creates server running on localhost:3000
