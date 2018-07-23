@@ -22,10 +22,10 @@ This project was created as a part of the Treehouse Full Stack JavaScript Techde
 
 ``` javascript
 const T = {
-  consumer_key: "zqbzbNOOGD0BmQTPdpzsQgXvH",
-  consumer_secret: "15pOnKYQ1aQnBbkyXfHCIMxVam4QIuEBCeGR4C7YWxRS0WKF2H",
-  access_token: "913822148761759744-oLkNwLv50DyJkGQfDooNiEilALVCig7",
-  access_token_secret: "Z6x9d56W8B8bsYTenivlN1kO4TG2nC4zHOfs4PKQLyKKa",
+  consumer_key: "...",
+  consumer_secret: "...",
+  access_token: "...",
+  access_token_secret: "...",
   timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
   strictSSL: true, // optional - requires SSL certificates to be valid.
 };
