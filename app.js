@@ -1,24 +1,25 @@
 const express = require("express");
 const app = express();
+const config = require("./config.js");
 const bodyParser = require("body-parser");
 const Twit = require("twit");
-const config = require("./config.js");
+const moment = require("moment");
 const T = new Twit(config);
 const user = {};
+const count = 1;
+const tweets = [];
 
 // tells express which template engine to use
 app.set("view engine", "pug");
 
 // tells express to use bodyParser and where static files are located
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use("/static", express.static("./public"));
 
 // uses Twit to retrieve user data
 T.get("account/verify_credentials", (err, data, res, next) => {
   if (err) {
-    console.log(err);
+    console.error(err);
   }
 
   // adds user data to object named "user"
@@ -30,9 +31,33 @@ T.get("account/verify_credentials", (err, data, res, next) => {
   user.profileBanner = data.profile_banner_url;
 });
 
+// uses Twit to retrieve data on user's last five tweets
+T.get("statuses/user_timeline", {count}, function (err, data, response) {
+  // console.log(data);
+
+  if (err) {
+    console.error(err);
+  }
+
+  // loops through returned data to create an object w/ info on each tweet an adds it to an array
+  for (let i = 0; i < count; i++) {
+    const tweet = {};
+
+    tweet.createdAt = moment(data[i].created_at).fromNow();
+    tweet.content = data[i].text;
+    tweet.retweetCount = data[i].retweet_count;
+    tweet.favoriteCount = data[i].favorite_count;
+
+    tweets.push(tweet);
+  }
+});
+
 // renders layout.pug to the "/" route
+// passes user as a local
 app.get("/", (req, res) => {
-  res.render("layout", {user});
+  res.render("layout", {
+    user
+  });
 });
 
 // creates server running on localhost:3000
