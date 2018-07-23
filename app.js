@@ -47,15 +47,12 @@ T.get("statuses/user_timeline", {count}, function (err, data, response) {
 
     tweets.push(tweet);
   }
-  console.log(tweets);
 });
 
 // renders layout.pug to the "/" route
-// passes user as a local
+// passes user and tweets as locals
 app.get("/", (req, res) => {
-  res.render("layout", {
-    user
-  });
+  res.render("layout", {user, tweets});
 });
 
 // creates server running on localhost:3000
