@@ -1076,7 +1076,7 @@ select:focus {
 .circle--select {
   position: relative;
   width: 100%;
-  border-sizing: border-box;
+  box-sizing: border-box;
   border: 1px solid #aeddfa;
   height: 50px;
   border-radius: 8px;
@@ -2148,6 +2148,10 @@ body {
   z-index: 1;
   margin: 0;
   padding: 20px 5px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  /* background-size: cover; */
 }
 
 /* line 39, ../sass/global.sass */
