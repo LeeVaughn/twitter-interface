@@ -42,7 +42,7 @@ module.exports = T;
 * [pug](https://www.npmjs.com/package/pug) A clean, whitespace-sensitive template language for writing HTML
 * [Twit](https://www.npmjs.com/package/twit) Twitter API Client for node
 * [body-parser](https://www.npmjs.com/package/body-parser) Node.js body parsing middleware
-* [moment](https://www.npmjs.com/package/moment) A lightweight JavaScript date library
+* [date-fns](https://www.npmjs.com/package/date-fns) Modern JavaScript date utility library
 
 ## Links
 

@@ -4,9 +4,10 @@ const config = require("./config.js");
 const bodyParser = require("body-parser");
 const Twit = require("twit");
 const moment = require("moment");
+const distanceInWordsToNow = require('date-fns/distance_in_words_to_now');
 const T = new Twit(config);
 const user = {};
-const count = 1;
+const count = 5;
 const tweets = [];
 
 // tells express which template engine to use
@@ -33,23 +34,21 @@ T.get("account/verify_credentials", (err, data, res, next) => {
 
 // uses Twit to retrieve data on user's last five tweets
 T.get("statuses/user_timeline", {count}, function (err, data, response) {
-  // console.log(data);
-
   if (err) {
     console.error(err);
   }
-
   // loops through returned data to create an object w/ info on each tweet an adds it to an array
   for (let i = 0; i < count; i++) {
     const tweet = {};
 
-    tweet.createdAt = moment(data[i].created_at).fromNow();
+    tweet.createdAt = `${distanceInWordsToNow(data[i].created_at)} ago`;
     tweet.content = data[i].text;
     tweet.retweetCount = data[i].retweet_count;
     tweet.favoriteCount = data[i].favorite_count;
 
     tweets.push(tweet);
   }
+  console.log(tweets);
 });
 
 // renders layout.pug to the "/" route
