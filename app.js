@@ -9,6 +9,8 @@ let user = {};
 const count = 5;
 const tweets = [];
 const friends = [];
+const messages = [];
+const recipients = [];
 
 // tells express which template engine to use
 app.set("view engine", "pug");
@@ -52,11 +54,14 @@ T.get("statuses/user_timeline", {count}, (err, data, response) => {
   }
 });
 
+
+// uses Twit to retrieve data on the last five people the user followed
 T.get("friends/list", {count}, (err, data, response) => {
   if (err) {
     console.error(err);
   }
 
+  // loops through returned data to create an object w/ info on each friend an adds it to an array
   for (let i = 0; i < count; i++) {
     const friend = {
       "name": data.users[i].name,
@@ -67,10 +72,36 @@ T.get("friends/list", {count}, (err, data, response) => {
   }
 });
 
+// uses Twit to retrieve data on the user's five most recent direct messages from the last 30 days
+T.get("direct_messages/events/list", {count}, (err, data, response) => {
+  // this variable will be used in the for loop since the number of returned messages could be less than five
+  let length = count;
+  // console.log(data.events);
+  if (err) {
+    console.error(err);
+  }
+  // if less than five messages are retrieved, sets length to equal the number of messages returned
+  if (data.events.length < count) {
+    length = data.events.length;
+  }
+
+  // loops through returned data to create an object w/ info on each direct message an adds it to an array
+  for (let i = 0; i < length; i++) {
+     const message = {
+      "createdTimestamp": `${distanceInWordsToNow(parseInt(data.events[i].created_timestamp))} ago`,
+      "recipientId": data.events[i].message_create.target.recipient_id,
+      "senderId": data.events[i].message_create.sender_id,
+      "messageData": data.events[i].message_create.message_data.text
+    }
+    messages.push(message);
+    console.log(messages);
+  }
+});
+
 // renders layout.pug to the "/" route
-// passes user and tweets as locals
+// passes user, tweets, and friends as locals
 app.get("/", (req, res) => {
-  res.render("layout", {user, tweets});
+  res.render("layout", {user, tweets, friends});
 });
 
 // creates server running on localhost:3000
