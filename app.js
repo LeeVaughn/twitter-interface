@@ -54,7 +54,6 @@ T.get("statuses/user_timeline", {count}, (err, data, res) => {
   }
 });
 
-
 // uses Twit to retrieve data on the last five people the user followed
 T.get("friends/list", {count}, (err, data, res) => {
   if (err) {
@@ -76,13 +75,12 @@ T.get("friends/list", {count}, (err, data, res) => {
 T.get("direct_messages/events/list", {count}, (err, data, res) => {
   // this variable will be used in the for loop since the number of returned messages could be less than five
   let length = count;
-  // console.log(data.events);
-  if (err) {
-    console.error(err);
-  }
   // if less than five messages are retrieved, sets length to equal the number of messages returned
   if (data.events.length < count) {
     length = data.events.length;
+  }
+  if (err) {
+    console.error(err);
   }
 
   // loops through returned data to create an object w/ info on each direct message an adds it to an array
@@ -90,23 +88,26 @@ T.get("direct_messages/events/list", {count}, (err, data, res) => {
     const message = {
       "createdTimestamp": `${distanceInWordsToNow(parseInt(data.events[i].created_timestamp))} ago`,
       "recipientId": data.events[i].message_create.target.recipient_id,
-      "recipientName": userLookup(data.events[i].message_create.target.recipient_id),
       "senderId": data.events[i].message_create.sender_id,
-      "messageData": data.events[i].message_create.message_data.text
+      "messageData": data.events[i].message_create.message_data.text,
     }
     messages.push(message);
 
-    function userLookup(id) {
-      T.get("users/lookup", {user_id: id}, (err, data, res) => {
-        if (err) {
-          console.error(err);
-        }
-        return data[0].name;
-      });
-    }
-    // userLookup(message.recipientId);
+    T.get("users/show", {user_id: message.recipientId}, (err, data, res) => {
+      if (err) {
+        console.error(err);
+      }
+      console.log(data.name);
+      console.log(data.profile_image_url);
+      const recipient = {
+        "recipientName": data.name,
+        "recipientProfileImage": data.profile_image_url
+      }
+      recipients.push(recipient);
+    });
   }
   console.log(messages);
+  console.log(recipients);
 });
 
 // renders layout.pug to the "/" route
