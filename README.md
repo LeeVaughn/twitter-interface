@@ -1,6 +1,6 @@
 # Twitter Interface (Work in Progress)
 
-An Express and Pug application that uses Twitter's REST API to access data for a Twitter profile and display it to the user.
+A Node.js application that uses Express and Pug along with Twitter's REST API to access data for a Twitter account and renders it to the local host.
 
 ## Motivation
 
@@ -43,6 +43,16 @@ module.exports = T;
 * [Twit](https://www.npmjs.com/package/twit) Twitter API Client for node
 * [body-parser](https://www.npmjs.com/package/body-parser) Node.js body parsing middleware
 * [date-fns](https://www.npmjs.com/package/date-fns) Modern JavaScript date utility library
+
+## Built With
+
+* [Node.js](https://nodejs.org/en/)
+* [Express](https://github.com/LeeVaughn/twitter-interface)
+* [Pug](https://pugjs.org/api/getting-started.html)
+
+## API
+
+* [Twitter REST API](https://developer.twitter.com/en/docs.html)
 
 ## Links
 
