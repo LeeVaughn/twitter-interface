@@ -2,15 +2,15 @@ doctype html
 html(lang="en")
 	head
 		meta(charset="utf-8")
-		title Twitter Client
+		title Twitter at a Glance
 		meta(name="description", content="An Express application that uses Twitter's REST API to access and render information from a Twitter account.")
 		meta(name="author", content="Daniel Lee Vaughn")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Work+Sans:400,600", rel="stylesheet", type="text/css")
 		link(rel="stylesheet", href="static/css/global.css")
 	body
+		//- includes twitter name, profile image, and background image
 		header.circle--header(style="background-image:url("+user.profileBanner+")")
-			//- will include twitter name, profile image, and background image
 			.bounds
 				.circle--fluid
 					.circle--fluid--cell
@@ -52,7 +52,7 @@ html(lang="en")
 						h2 Direct Messages
 			.grid-33
 				.app--section
-					//- will display five most recent tweets
+					//- displays five most recent tweets
 					ul.app--tweet--list
 						each tweet in tweets
 							li
@@ -91,7 +91,7 @@ html(lang="en")
 											strong  #{tweet.favoriteCount}
 			.grid-33
 				.app--section
-					//- will display five most recent people followed
+					//- displays five most recent people followed
 					ul.app--user--list
 						each friend in friends
 							li
