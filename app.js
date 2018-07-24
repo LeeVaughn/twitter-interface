@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use("/static", express.static("./public"));
 
 // uses Twit to retrieve user data
-T.get("account/verify_credentials", (err, data, res, next) => {
+T.get("account/verify_credentials", (err, data, res) => {
   if (err) {
     console.error(err);
   }
@@ -37,7 +37,7 @@ T.get("account/verify_credentials", (err, data, res, next) => {
 });
 
 // uses Twit to retrieve data on user's last five tweets
-T.get("statuses/user_timeline", {count}, (err, data, response) => {
+T.get("statuses/user_timeline", {count}, (err, data, res) => {
   if (err) {
     console.error(err);
   }
@@ -56,7 +56,7 @@ T.get("statuses/user_timeline", {count}, (err, data, response) => {
 
 
 // uses Twit to retrieve data on the last five people the user followed
-T.get("friends/list", {count}, (err, data, response) => {
+T.get("friends/list", {count}, (err, data, res) => {
   if (err) {
     console.error(err);
   }
@@ -73,7 +73,7 @@ T.get("friends/list", {count}, (err, data, response) => {
 });
 
 // uses Twit to retrieve data on the user's five most recent direct messages from the last 30 days
-T.get("direct_messages/events/list", {count}, (err, data, response) => {
+T.get("direct_messages/events/list", {count}, (err, data, res) => {
   // this variable will be used in the for loop since the number of returned messages could be less than five
   let length = count;
   // console.log(data.events);
@@ -97,11 +97,11 @@ T.get("direct_messages/events/list", {count}, (err, data, response) => {
     messages.push(message);
 
     function userLookup(id) {
-      T.get("users/lookup", {user_id: id}, (err, data, response) => {
+      T.get("users/lookup", {user_id: id}, (err, data, res) => {
         if (err) {
           console.error(err);
         }
-        console.log(data[0].name);
+        return data[0].name;
       });
     }
     // userLookup(message.recipientId);
