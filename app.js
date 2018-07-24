@@ -87,15 +87,26 @@ T.get("direct_messages/events/list", {count}, (err, data, response) => {
 
   // loops through returned data to create an object w/ info on each direct message an adds it to an array
   for (let i = 0; i < length; i++) {
-     const message = {
+    const message = {
       "createdTimestamp": `${distanceInWordsToNow(parseInt(data.events[i].created_timestamp))} ago`,
       "recipientId": data.events[i].message_create.target.recipient_id,
+      "recipientName": userLookup(data.events[i].message_create.target.recipient_id),
       "senderId": data.events[i].message_create.sender_id,
       "messageData": data.events[i].message_create.message_data.text
     }
     messages.push(message);
-    console.log(messages);
+
+    function userLookup(id) {
+      T.get("users/lookup", {user_id: id}, (err, data, response) => {
+        if (err) {
+          console.error(err);
+        }
+        console.log(data[0].name);
+      });
+    }
+    // userLookup(message.recipientId);
   }
+  console.log(messages);
 });
 
 // renders layout.pug to the "/" route
