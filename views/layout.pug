@@ -108,19 +108,33 @@ html(lang="en")
 				.app--section
 					//- display up to five direct messages from the last 30 days
 					ul.app--message--list
-						li
-							//- h3
-							//- 	| Conversation with 
-							//- 	a Jill Spore
-							ul.app--message--conversation
-								for message in messages
-									if message.senderName === user.name
-										li.app--message--me
-											.app--avatar(style='background-image:url('+user.profileImage+')')
-											p.app--message--text #{message.messageData}
-											p.app--message--timestamp #{message.createdTimestamp}
-									else
-										li.app--message
-											.app--avatar(style='background-image: url('+message.senderProfileImage+')')
-											p.app--message--text #{message.messageData}
-											p.app--message--timestamp #{message.createdTimestamp}
+						for message in messages
+							if message.recipientName !== user.name
+								li
+									h3
+										| Conversation with 
+										a #{message.recipientName}
+									ul.app--message--conversation
+										if message.senderName === user.name
+											li.app--message--me
+												.app--avatar(style='background-image:url('+user.profileImage+')')
+												p.app--message--text #{message.messageData}
+												p.app--message--timestamp #{message.createdTimestamp}
+										else
+											li.app--message
+												.app--avatar(style='background-image: url('+message.senderProfileImage+')')
+												p.app--message--text #{message.messageData}
+												p.app--message--timestamp #{message.createdTimestamp}
+							else
+								li
+									ul.app--message--conversation
+										if message.senderName === user.name
+											li.app--message--me
+												.app--avatar(style='background-image:url('+user.profileImage+')')
+												p.app--message--text #{message.messageData}
+												p.app--message--timestamp #{message.createdTimestamp}
+										else
+											li.app--message
+												.app--avatar(style='background-image: url('+message.senderProfileImage+')')
+												p.app--message--text #{message.messageData}
+												p.app--message--timestamp #{message.createdTimestamp}
