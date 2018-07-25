@@ -10,7 +10,6 @@ const count = 5;
 const tweets = [];
 const friends = [];
 const messages = [];
-const senders = [];
 
 // tells express which template engine to use
 app.set("view engine", "pug");
@@ -71,10 +70,11 @@ T.get("friends/list", {count}, (err, data, res) => {
   }
 });
 
-// uses Twit to retrieve data on the user's five most recent direct messages from the last 30 days
+// uses Twit to retrieve data on the user's five most recent direct messages
 T.get("direct_messages/events/list", {count}, (err, data, res) => {
   // this variable will be used in the for loop since the number of returned messages could be less than five
   let length = count;
+  
   // if less than five messages are retrieved, sets length to equal the number of messages returned
   if (data.events.length < count) {
     length = data.events.length;
@@ -92,6 +92,7 @@ T.get("direct_messages/events/list", {count}, (err, data, res) => {
       "messageData": data.events[i].message_create.message_data.text,
     }
 
+    // uses Twit to retrieve data on the direct message sender
     T.get("users/show", {user_id: message.senderId}, (err, data, res) => {
       if (err) {
         console.error(err);
@@ -101,19 +102,19 @@ T.get("direct_messages/events/list", {count}, (err, data, res) => {
       message.senderProfileImage = data.profile_image_url;
     });
 
+    // uses Twit to retrieve data on the direct message recipient
     T.get("users/show", {user_id: message.recipientId}, (err, data, res) => {
       if (err) {
         console.error(err);
       }
-      // adds sender name and profile image to message object
+      // adds recipient name and profile image to message object
       message.recipientName = data.name;
       message.recipientProfileImage = data.profile_image_url;
     });
     messages.push(message);
+    // reverses messages array so oldest message renders first
     messages.reverse();
   }
-
-  
 });
 
 // renders layout.pug to the "/" route
