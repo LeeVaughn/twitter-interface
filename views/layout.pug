@@ -3,7 +3,7 @@ html(lang="en")
 	head
 		meta(charset="utf-8")
 		title Twitter at a Glance
-		meta(name="description", content="An Express application that uses Twitter's REST API to access and render information from a Twitter account.")
+		meta(name="description", content="An Node.js application that uses Express and Pug along with Twitter's REST API to access and render data from a Twitter account.")
 		meta(name="author", content="Daniel Lee Vaughn")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		link(href="https://fonts.googleapis.com/css?family=Work+Sans:400,600", rel="stylesheet", type="text/css")
@@ -106,36 +106,21 @@ html(lang="en")
 										a.button.button-text Unfollow
 			.grid-33
 				.app--section
-					//- will display five most recent DM's
+					//- display up to five direct messages from the last 30 days
 					ul.app--message--list
 						li
-							h3
-								| Conversation with 
-								a Jill Spore
+							//- h3
+							//- 	| Conversation with 
+							//- 	a Jill Spore
 							ul.app--message--conversation
-								li.app--message
-									.app--avatar(style="background-image: url(static/images/f-spore.png)")
-										img(src="static/images/f-spore.png")
-									p.app--message--text How are things?
-									p.app--message--timestamp 3 hours ago
-								li.app--message--me
-									.app--avatar(style="background-image: url(static/images/m-spore.png)")
-										img(src="static/images/m-spore.png")
-									p.app--message--text
-										| Great! How about you? Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-									p.app--message--timestamp 2 hours ago
-								li.app--message
-									.app--avatar(style="background-image: url(static/images/f-spore.png)")
-										img(src="static/images/f-spore.png")
-									p.app--message--text Fantastic! You wanna grab lunch?
-									p.app--message--timestamp 2 hours ago
-								li.app--message--me
-									.app--avatar(style="background-image: url(static/images/m-spore.png)")
-										img(src="static/images/m-spore.png")
-									p.app--message--text Totes mcgotes. How about Mackey"s?
-									p.app--message--timestamp 1 hour ago
-								li.app--message
-									.app--avatar(style="background-image: url(static/images/f-spore.png)")
-										img(src="static/images/f-spore.png")
-									p.app--message--text Aww yeah.. I"m craving a Triple Quarter Mack!
-									p.app--message--timestamp 1 hour ago
+								for message in messages
+									if message.senderName === user.name
+										li.app--message--me
+											.app--avatar(style='background-image:url('+user.profileImage+')')
+											p.app--message--text #{message.messageData}
+											p.app--message--timestamp #{message.createdTimestamp}
+									else
+										li.app--message
+											.app--avatar(style='background-image: url('+message.senderProfileImage+')')
+											p.app--message--text #{message.messageData}
+											p.app--message--timestamp #{message.createdTimestamp}
