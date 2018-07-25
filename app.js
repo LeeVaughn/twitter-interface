@@ -10,6 +10,7 @@ const count = 5;
 const tweets = [];
 const friends = [];
 const messages = [];
+let tweet = {};
 
 // tells express which template engine to use
 app.set("view engine", "pug");
@@ -74,7 +75,7 @@ T.get("friends/list", {count}, (err, data, res) => {
 T.get("direct_messages/events/list", {count}, (err, data, res) => {
   // this variable will be used in the for loop since the number of returned messages could be less than five
   let length = count;
-  
+
   // if less than five messages are retrieved, sets length to equal the number of messages returned
   if (data.events.length < count) {
     length = data.events.length;
@@ -120,6 +121,17 @@ T.get("direct_messages/events/list", {count}, (err, data, res) => {
 // renders layout.pug to the "/" route
 // passes user, tweets, friends, and messages as locals
 app.get("/", (req, res) => {
+  res.render("layout", {user, tweets, friends, messages});
+});
+
+app.post("/", (req, res) => {
+  T.post("statuses/update", {status: req.body.tweet}, (err, data, res) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+  tweets.pop(tweets[4]);
+  tweets.unshift(tweet);
   res.render("layout", {user, tweets, friends, messages});
 });
 
