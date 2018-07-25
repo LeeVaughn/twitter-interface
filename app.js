@@ -100,9 +100,20 @@ T.get("direct_messages/events/list", {count}, (err, data, res) => {
       message.senderName = data.name;
       message.senderProfileImage = data.profile_image_url;
     });
+
+    T.get("users/show", {user_id: message.recipientId}, (err, data, res) => {
+      if (err) {
+        console.error(err);
+      }
+      // adds sender name and profile image to message object
+      message.recipientName = data.name;
+      message.recipientProfileImage = data.profile_image_url;
+    });
     messages.push(message);
     messages.reverse();
   }
+
+  
 });
 
 // renders layout.pug to the "/" route
