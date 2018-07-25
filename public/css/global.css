@@ -2424,7 +2424,7 @@ a:hover .app--avatar {
 .app--message--list > li {
   padding: 15px 20px;
   margin: 0;
-  border-bottom: 4px solid #f1f1f1;
+  /* border-bottom: 4px solid #f1f1f1; */
 }
 /* line 220, ../sass/global.sass */
 .app--message--list h3 {
