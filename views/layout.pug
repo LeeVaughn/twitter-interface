@@ -28,13 +28,13 @@ html(lang="en")
 								li
 									a Sign Out
 		.app--tweet
-			form
+			form(action="/", method="post")
 				//- section will allow user to post a tweet
 				.circle--fluid
 					.circle--fluid--cell.circle--fluid--primary.align-bottom.app--tweet--post
-						.app--avatar(style="background-image: url(static/images/m-spore.png)")
-							img(src="static/images/m-spore.png")
-						textarea#tweet-textarea.circle--textarea--input(placeholder="What's happening?")
+						.app--avatar(style="background-image: url("+user.profileImage+")")
+							//- img(src="static/images/m-spore.png")
+						textarea#tweet-textarea.circle--textarea--input(name="tweet", placeholder="What's happening?")
 						strong#tweet-char.app--tweet--char 140
 					.circle--fluid--cell.align-bottom
 						button.button-primary Tweet
@@ -142,4 +142,3 @@ html(lang="en")
 						else
 							li
 								h3 Sorry there are no direct messages to display
-													
