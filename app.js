@@ -10,7 +10,7 @@ const count = 5;
 const tweets = [];
 const friends = [];
 const messages = [];
-const recipients = [];
+const senders = [];
 
 // tells express which template engine to use
 app.set("view engine", "pug");
@@ -85,35 +85,30 @@ T.get("direct_messages/events/list", {count}, (err, data, res) => {
 
   // loops through returned data to create an object w/ info on each direct message an adds it to an array
   for (let i = 0; i < length; i++) {
-    const message = {
+    let message = {
       "createdTimestamp": `${distanceInWordsToNow(parseInt(data.events[i].created_timestamp))} ago`,
       "recipientId": data.events[i].message_create.target.recipient_id,
       "senderId": data.events[i].message_create.sender_id,
       "messageData": data.events[i].message_create.message_data.text,
     }
-    messages.push(message);
 
-    T.get("users/show", {user_id: message.recipientId}, (err, data, res) => {
+    T.get("users/show", {user_id: message.senderId}, (err, data, res) => {
       if (err) {
         console.error(err);
       }
-      console.log(data.name);
-      console.log(data.profile_image_url);
-      const recipient = {
-        "recipientName": data.name,
-        "recipientProfileImage": data.profile_image_url
-      }
-      recipients.push(recipient);
+      // adds sender name and profile image to message object
+      message.senderName = data.name;
+      message.senderProfileImage = data.profile_image_url;
     });
+    messages.push(message);
+    messages.reverse();
   }
-  console.log(messages);
-  console.log(recipients);
 });
 
 // renders layout.pug to the "/" route
-// passes user, tweets, and friends as locals
+// passes user, tweets, friends, and messages as locals
 app.get("/", (req, res) => {
-  res.render("layout", {user, tweets, friends});
+  res.render("layout", {user, tweets, friends, messages});
 });
 
 // creates server running on localhost:3000
