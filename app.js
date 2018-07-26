@@ -122,6 +122,10 @@ app.get("/", (req, res) => {
   res.render("layout", {user, tweets, friends, messages});
 });
 
+app.get("*", (req, res) => {
+  res.render("error");
+});
+
 // makes post request to send new tweet
 app.post("/", (req, res) => {
   // uses Twit to send new tweet
