@@ -253,6 +253,18 @@ body {
   margin: 0 auto;
 }
 
+.error {
+  margin: auto;
+  text-align: center;
+}
+
+.sorry {
+  display: block;
+  margin: auto;
+  padding-bottom: 20px;
+  width: 40%;
+}
+
 /* line 10, ../sass/circle/core/_layout.sass */
 .grid, .grid-5, .grid-10, .grid-15, .grid-20, .grid-25, .grid-30, .grid-33, .grid-35, .grid-40, .grid-45, .grid-50, .grid-55, .grid-60, .grid-65, .grid-66, .grid-70, .grid-75, .grid-80, .grid-90, .grid-95, .grid-100 {
   float: left;
