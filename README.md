@@ -11,6 +11,8 @@ This project was created as a part of the Treehouse Full Stack JavaScript Techde
 * Accesses information on a Twitter account using Twitter's REST API
 * Automatically authenticates access to a Twitter profile
 * Displays recent tweets, recent friends, and recent direct messages
+* Allows user to send tweets
+* Displays user friendly error page if a page doesn't exist
 * Running ```npm install``` installs relevant dependencies
 
 ## To Run
