@@ -10,7 +10,6 @@ const count = 5;
 const tweets = [];
 const friends = [];
 const messages = [];
-let tweet = {};
 
 // tells express which template engine to use
 app.set("view engine", "pug");
@@ -118,21 +117,34 @@ T.get("direct_messages/events/list", {count}, (err, data, res) => {
   }
 });
 
-// renders layout.pug to the "/" route
-// passes user, tweets, friends, and messages as locals
 app.get("/", (req, res) => {
+  // renders layout.pug to the "/" route and passes user, tweets, friends, and messages as locals
   res.render("layout", {user, tweets, friends, messages});
 });
 
+// makes post request to send new tweet
 app.post("/", (req, res) => {
-  T.post("statuses/update", {status: req.body.tweet}, (err, data, res) => {
+  // uses Twit to send new tweet
+  T.post("statuses/update", {status: req.body.tweet}, (err, data, response) => {
     if (err) {
       console.error(err);
     }
+
+    // creates an object with data for the new tweet
+    let tweet = {
+      "createdAt": `${distanceInWordsToNow(data.created_at)} ago`,
+      "content": data.text,
+      "retweetCount": data.retweet_count,
+      "favoriteCount": data.favorite_count
+    }
+
+    // removes the oldest tweet from the end of the array and adds the new tweet to the beginning of the array
+    tweets.pop(tweets[4]);
+    tweets.unshift(tweet);
+
+    // renders layout.pug to the "/" route and passes user, tweets, friends, and messages as locals
+    res.render("layout", {user, tweets, friends, messages});
   });
-  tweets.pop(tweets[4]);
-  tweets.unshift(tweet);
-  res.render("layout", {user, tweets, friends, messages});
 });
 
 // creates server running on localhost:3000
