@@ -1,4 +1,4 @@
-# Twitter Interface (Work in Progress)
+# Twitter Interface
 
 A Node.js application that uses Express and Pug along with Twitter's REST API to access data for a Twitter account and renders it to the local host.
 
@@ -55,6 +55,11 @@ module.exports = T;
 ## API
 
 * [Twitter REST API](https://developer.twitter.com/en/docs.html)
+
+## Future Improvements
+
+* Deploy on Heroku
+* Consider integrating the Twitter's Streaming API
 
 ## Links
 
